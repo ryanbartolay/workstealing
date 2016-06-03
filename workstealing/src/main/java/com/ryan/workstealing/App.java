@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.function.Supplier;
 
 /**
  *  Class represents a worker that is put onto an available processor
@@ -105,13 +106,16 @@ public class App
 	        Instant now = Instant.now(); // Start clock at now
 	        
 	        // Work Stealing Pool is new in Java 8
+	        // Use Executor interface to not return any Future
 	        //ExecutorService threadPool = Executors.newSingleThreadExecutor();
 	        ExecutorService threadPool = Executors.newWorkStealingPool();
+	        	        
 	        
 	        // Each future will have the average of the list of random doubles
 	        List<Future<Double>> futures = new ArrayList<Future<Double>>(cores);
 	        
 	        // Populate the list of futures by submitting callables to the thread pool
+	        
 	        for(int i=0;i<cores;i++) {
 	            futures.add(i,threadPool.submit(new Worker(i))); // non-blocking
 	        }
