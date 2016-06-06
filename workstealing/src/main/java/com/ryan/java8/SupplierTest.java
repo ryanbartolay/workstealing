@@ -14,8 +14,8 @@ public class SupplierTest {
 		names.add( "Sam");
 		names.add( "Ben");
 
-		names.stream().forEach((x) -&gt; {
-			printNames(() -&gt; x);
+		names.stream().forEach((x) -> {
+			printNames(() -> x);
 		});
 
 	}
